@@ -6,11 +6,6 @@ class ReferralSerializer(serializers.ModelSerializer):
     model = Referral
     fields = ('id', 'title', 'count', )
 
-class DetailReferralSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = Referral
-    fields = ('title', )
-
 class CountSerializer(serializers.ModelSerializer):
   class Meta:
     model = Referral
