@@ -1,3 +1,81 @@
-.activity-feed {
-  
+.activity-feed ul{
+  list-style-type: none;
+}
+
+.activity-feed ul li {
+  display: flex;
+}
+
+.number-section {
+  display: flex;
+  flex-direction: column;
+}
+.number-section .number {
+  padding: 15px;
+  margin: 5px;
+  border-radius: 5px;
+  color: white;
+  /* font-size: 20px; */
+}
+
+.number-section .number-one {
+  background-color: #16B993;
+}
+
+.number-section .number-two {
+  background-color: #F49D00;
+}
+
+.number-section .number-three {
+  background-color: #E84B34;
+}
+
+.number-section .line {
+  height: 100%;
+  border-right: 2px solid #DEE0E3;
+  width: 20%;
+  margin: 0 25%;
+}
+
+.number-section .last {
+  border: none;
+}
+
+.item {
+  margin-bottom:10px;
+  margin-left: 15px;
+  width: 100%;
+  border: 1px solid #ECF0F0;
+  padding: 10px;
+}
+.item .item-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item .item-header a {
+  text-decoration: none;
+  color: #3696D6;
+}
+
+.item .item-header h4 {
+  font-weight: normal;
+}
+
+.item p {
+  color:#969DA4;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .item .item-header {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .item .item-header h3, .item .item-header h4 {
+    margin: 0;
+  }
+  .item .item-header h3 {
+    padding: 10px 0; 
+  }
 }
