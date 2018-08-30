@@ -1,4 +1,11 @@
-from django.http import HttpResponse
+from rest_framework import generics
+from .models import Referral
+from .serializers import ReferralSerializer, DetailReferralSerializer
 
-def index(request):
-  return HttpResponse("Hello, world. You're at the api index.")
+class ListReferral(generics.ListCreateAPIView):
+  queryset = Referral.objects.all()
+  serializer_class = ReferralSerializer
+
+class DetailReferral(generics.RetrieveUpdateDestroyAPIView):
+  queryset = Referral.objects.all()
+  serializer_class = DetailReferralSerializer
