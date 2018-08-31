@@ -3,3 +3,35 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.home {
+  width: 70%;
+  margin: 0 auto;
+}
+.home h1 {
+  margin: 25px 0; 
+  padding: 20px 0;
+  text-align: center;
+}
+.link-form {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.link-form input {
+  width: 90%;
+}
+
+.referral-page {
+  text-align: center;
+  padding: 20px;
+}
+
+.referral-page h1, .referral-page h2 {
+  padding-bottom: 30px;
+}
+
+.table tbody tr td a {
+  cursor: pointer;
+}

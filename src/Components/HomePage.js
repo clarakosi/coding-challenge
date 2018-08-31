@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom'
 import {
   getReferrals,
   addReferral,
   deleteReferral,
   updateReferral
 } from "../Actions";
+import { Form, Input, Button, Table, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
 class HomePage extends Component {
   constructor(props) {
@@ -32,6 +34,7 @@ class HomePage extends Component {
     const title = this.state.newReferral;
     this.props.addReferral(title);
   };
+
   updateToggle = index => {
     const title = this.props.referrals[index].title;
     this.setState({
@@ -40,6 +43,11 @@ class HomePage extends Component {
       title
     });
   };
+
+  modalToggle = () => {
+    this.setState({ update: !this.state.update })
+  }
+
   updateChangeHandler = event => {
     const { name, value } = event.target;
     this.setState({
@@ -64,17 +72,19 @@ class HomePage extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.addReferral}>
-          <input
+      <div className="home">
+        <h1>Grow the web with referrals!</h1>
+        <Form onSubmit={this.addReferral} className="link-form">
+          <Input
             type="text"
             name="newReferral"
             value={this.state.newReferral}
             onChange={this.newReferralChangeHandler}
+            placeholder="Add a link"
           />
-          <button type="submit">Add Referral</button>
-        </form>
-        <table>
+          <Button type="submit">Add</Button>
+        </Form>
+        <Table hover striped>
           <thead>
             <tr>
               <th>Link Title</th>
@@ -88,35 +98,36 @@ class HomePage extends Component {
               return (
                 <tr key={referral.id}>
                   <td>
-                    <a href={`landing/${referral.id}/${referral.title}`}>
+                    <a href={`landing/${referral.id}/${referral.title}`} target="_blank">
                       {referral.title}
                     </a>
                   </td>
                   <td>{referral.count}</td>
-                  <td onClick={() => this.updateToggle(index)}>Edit</td>
-                  <td
-                    onClick={() => {
-                      this.deleteReferral(referral.id);
-                    }}
-                  >
-                    Delete
+                  <td><a onClick={() => this.updateToggle(index)}>Edit</a></td>
+                  <td>
+                    <a onClick={() => this.deleteReferral(referral.id)}>Delete</a>
                   </td>
                 </tr>
               );
             })}
           </tbody>
-        </table>
-        <form
-          onSubmit={this.updateReferral}
-          style={{ display: this.state.update ? null : "none" }}
-        >
-          <input
-            name="title"
-            value={this.state.title}
-            onChange={this.updateChangeHandler}
-          />
-          <button type="submit">Update</button>
-        </form>
+        </Table>
+        <Modal isOpen={this.state.update} toggle={this.modalToggle}>
+          <ModalHeader toggle={this.modalToggle}>Update Link</ModalHeader>
+          <ModalBody>
+            <Input
+              type="text"
+              name="title"
+              value={this.state.title}
+              onChange={this.updateChangeHandler}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.updateReferral}>Update</Button>
+            <Button color="secondary" onClick={this.modalToggle}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+
       </div>
     );
   }
@@ -128,7 +139,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  { getReferrals, addReferral, deleteReferral, updateReferral }
-)(HomePage);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getReferrals, addReferral, deleteReferral, updateReferral }
+  )(HomePage)
+);
