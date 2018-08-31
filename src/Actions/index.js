@@ -6,10 +6,10 @@ export const REFERRALUPDATED = 'REFERRALUPDATED';
 export const REFERRALDELETED = 'REFERRALDELETED';
 export const ERROR = 'ERROR';
 
-
+const url ="https://tims-referral-app.herokuapp.com/api/";
 export const getReferrals = () => {
   return dispatch => {
-    axios.get('api/')
+    axios.get(url)
       .then(response => {
         dispatch({ type: RECEIVEDREFERRALS, payload: response.data })
       })
@@ -21,7 +21,7 @@ export const getReferrals = () => {
 
 export const addReferral = title => {
   return dispatch => {
-    axios.post('api/', { title })
+    axios.post(url, { title })
       .then(response => {
         dispatch({ type: REFERRALADDED, payload: response.data })
       })
@@ -33,7 +33,7 @@ export const addReferral = title => {
 
 export const updateReferral = (id, title) => {
   return dispatch => {
-    axios.put(`api/${id}`, { title })
+    axios.put(`${url}${id}`, { title })
       .then(response => {
         dispatch({ type: REFERRALUPDATED, payload: response.data })
       })
@@ -45,7 +45,7 @@ export const updateReferral = (id, title) => {
 
 export const deleteReferral = id => {
   return dispatch => {
-    axios.delete(`api/${id}`)
+    axios.delete(`${url}${id}`)
       .then(() => {
         dispatch({ type: REFERRALDELETED, payload: id})
       })
@@ -57,7 +57,7 @@ export const deleteReferral = id => {
 
 export const pageVisited = id => {
   return dispatch => {
-    axios.put(`api/count/${id}`)
+    axios.put(`${url}count/${id}`)
       .then(() => {
         return;
       })
